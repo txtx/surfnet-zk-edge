@@ -1,0 +1,19 @@
+{
+  "network_name": "SIMD-0296 - Ephemeral Network",
+  "network_handle": "Solana Foundation",
+  "network_description": "SIMD-0296: Larger Transaction Sizes. Test transactions up to 4096 bytes.",
+  "network_url": "https://simd-0296.surfnet.dev:8899",
+  "rpc_url": "https://simd-0296.surfnet.dev:8899",
+  "ws_url": "https://simd-0296.surfnet.dev:8900",
+  "explorer_cluster_query": "cluster=simd296",
+  "network_banner_image_url": "simd-0296/banner.jpg",
+  "network_logo_image_url": "simd-0296/logo.jpg",
+  "primary_color": "#8B5CF6",
+  "secondary_color": "#EC4899",
+  "primary_button": {
+    "label": "Open SIMD-0296",
+    "url": "https://github.com/solana-foundation/solana-improvement-documents/pull/296",
+    "color": "#8B5CF6"
+  },
+  "faucet_enabled": true
+}
