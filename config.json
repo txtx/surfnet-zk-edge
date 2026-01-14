@@ -1,19 +1,19 @@
 {
-  "network_name": "SIMD-0296 - Ephemeral Network",
-  "network_handle": "Solana Foundation",
-  "network_description": "SIMD-0296: Larger Transaction Sizes. Test transactions up to 4096 bytes.",
-  "network_url": "https://simd-0296.surfnet.dev:8899",
-  "rpc_url": "https://simd-0296.surfnet.dev:8899",
-  "ws_url": "https://simd-0296.surfnet.dev:8900",
-  "explorer_cluster_query": "cluster=simd296",
-  "network_banner_image_url": "simd-0296/banner.jpg",
-  "network_logo_image_url": "simd-0296/logo.jpg",
-  "primary_color": "#8B5CF6",
-  "secondary_color": "#EC4899",
+  "network_name": "Surfnet ZK Edge - Ephemeral Network",
+  "network_handle": "Solana Privacy Hackathon",
+  "network_description": "Zero-Knowledge Primitives on Solana. Experiment with advanced ZK proofs and privacy-preserving applications.",
+  "network_url": "https://zk-edge.surfnet.dev:8899",
+  "rpc_url": "https://zk-edge.surfnet.dev:8899",
+  "ws_url": "https://zk-edge.surfnet.dev:8900",
+  "explorer_cluster_query": "cluster=zkedge",
+  "network_banner_image_url": "zk-edge/banner.jpg",
+  "network_logo_image_url": "zk-edge/logo.jpg",
+  "primary_color": "#9333EA",
+  "secondary_color": "#06B6D4",
   "primary_button": {
-    "label": "Open SIMD-0296",
-    "url": "https://github.com/solana-foundation/solana-improvement-documents/pull/296",
-    "color": "#8B5CF6"
+    "label": "Join Privacy Hackathon",
+    "url": "https://solana.com/privacyhack",
+    "color": "#9333EA"
   },
   "faucet_enabled": true
 }

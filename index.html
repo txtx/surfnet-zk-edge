@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Surfnet ZK Edge - Zero-Knowledge Primitives on Solana for the Privacy Hackathon">
+    <meta name="keywords" content="Solana, Zero-Knowledge, ZK, Privacy, Hackathon, Blockchain, Cryptography">
+    <title>Surfnet ZK Edge | Zero-Knowledge Primitives on Solana</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #9333EA;
+            --secondary: #06B6D4;
+            --dark: #0F172A;
+            --light: #F8FAFC;
+            --accent: #EC4899;
+            --gradient: linear-gradient(135deg, #9333EA 0%, #06B6D4 100%);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background: var(--light);
+        }
+
+        .hero {
+            background: var(--gradient);
+            color: white;
+            padding: 2rem 1rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('banner.jpg') center/cover no-repeat;
+            opacity: 0.15;
+            z-index: 0;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 1rem;
+        }
+
+        .logo {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 2rem;
+            background: white;
+            border-radius: 50%;
+            padding: 1rem;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .tagline {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn-primary {
+            background: white;
+            color: var(--primary);
+        }
+
+        .btn-secondary {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 1rem;
+        }
+
+        .section {
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: #64748B;
+            margin-bottom: 2rem;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.07);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+
+        .feature-description {
+            color: #64748B;
+            line-height: 1.7;
+        }
+
+        .code-section {
+            background: var(--dark);
+            color: white;
+            padding: 3rem 1rem;
+            border-radius: 12px;
+            margin: 2rem 0;
+        }
+
+        .code-block {
+            background: #1E293B;
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 1rem 0;
+            border-left: 4px solid var(--primary);
+        }
+
+        .code-block code {
+            font-family: 'Monaco', 'Courier New', monospace;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .endpoint-card {
+            background: #1E293B;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+
+        .endpoint-label {
+            color: var(--secondary);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .endpoint-value {
+            font-family: 'Monaco', 'Courier New', monospace;
+            color: white;
+            font-size: 1rem;
+        }
+
+        .use-cases {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .use-case {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .use-case-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .use-case-description {
+            opacity: 0.9;
+            font-size: 0.95rem;
+        }
+
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .resource-card {
+            background: white;
+            border: 2px solid #E2E8F0;
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-decoration: none;
+            color: var(--dark);
+            transition: border-color 0.2s, transform 0.2s;
+        }
+
+        .resource-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .resource-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+
+        .resource-description {
+            color: #64748B;
+        }
+
+        .badge {
+            display: inline-block;
+            background: var(--secondary);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        footer {
+            background: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 2rem 1rem;
+            margin-top: 4rem;
+        }
+
+        footer a {
+            color: var(--secondary);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        .highlight {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .tagline {
+                font-size: 1.2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+
+        .network-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255,255,255,0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            margin-bottom: 1rem;
+        }
+
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            background: #10B981;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <div class="hero-content">
+            <div class="logo">
+                <img src="logo.jpg" alt="Surfnet ZK Edge Logo">
+            </div>
+            <div class="network-status">
+                <span class="status-dot"></span>
+                <span>Network Online</span>
+            </div>
+            <h1>Surfnet ZK Edge</h1>
+            <p class="tagline">Zero-Knowledge Primitives on Solana</p>
+            <p style="font-size: 1.1rem; opacity: 0.9; margin-bottom: 1rem;">
+                Build privacy-preserving applications with advanced ZK proofs on an ephemeral Solana network
+            </p>
+            <div class="cta-buttons">
+                <a href="https://solana.com/privacyhack" class="btn btn-primary">Join Privacy Hackathon</a>
+                <a href="#quick-start" class="btn btn-secondary">Get Started</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <section class="section">
+            <h2 class="section-title">What is Surfnet ZK Edge?</h2>
+            <p class="section-subtitle">
+                An ephemeral Solana network designed for the <a href="https://solana.com/privacyhack" style="color: var(--primary);">Solana Privacy Hackathon</a>, 
+                providing developers with cutting-edge zero-knowledge primitives and privacy-preserving capabilities.
+            </p>
+            
+            <div class="features">
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h3 class="feature-title">ZK Primitives</h3>
+                    <p class="feature-description">
+                        Access Groth16, PLONK, Bulletproofs, and ZK-STARKs for building privacy-preserving applications.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3 class="feature-title">Mainnet Data</h3>
+                    <p class="feature-description">
+                        Real-time data mirroring from Solana mainnet for realistic development and testing.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3 class="feature-title">Developer-Friendly</h3>
+                    <p class="feature-description">
+                        Free SOL faucet, comprehensive documentation, and hackathon support channels.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🚀</div>
+                    <h3 class="feature-title">4KB Transactions</h3>
+                    <p class="feature-description">
+                        SIMD-0296 enabled for larger transactions, perfect for complex ZK proofs.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="quick-start">
+            <h2 class="section-title">Quick Start</h2>
+            <div class="code-section">
+                <h3 style="margin-bottom: 1rem; font-size: 1.5rem;">Network Endpoints</h3>
+                
+                <div class="endpoint-card">
+                    <div class="endpoint-label">RPC URL</div>
+                    <div class="endpoint-value">https://zk-edge.surfnet.dev:8899</div>
+                </div>
+
+                <div class="endpoint-card">
+                    <div class="endpoint-label">WebSocket URL</div>
+                    <div class="endpoint-value">wss://zk-edge.surfnet.dev:8900</div>
+                </div>
+
+                <h3 style="margin: 2rem 0 1rem; font-size: 1.5rem;">Connect with @solana/web3.js</h3>
+                <div class="code-block">
+                    <code>import { Connection } from '@solana/web3.js';
+
+const connection = new Connection(
+  'https://zk-edge.surfnet.dev:8899',
+  'confirmed'
+);</code>
+                </div>
+
+                <h3 style="margin: 2rem 0 1rem; font-size: 1.5rem;">Request Test SOL</h3>
+                <div class="code-block">
+                    <code>// Request airdrop (1 SOL)
+await connection.requestAirdrop(
+  walletPublicKey,
+  1000000000
+);</code>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">ZK Use Cases</h2>
+            <p class="section-subtitle">Build innovative privacy-preserving applications for the hackathon</p>
+            
+            <div class="use-cases">
+                <div class="use-case">
+                    <div class="use-case-title">💰 Privacy DeFi</div>
+                    <p class="use-case-description">Confidential lending, private orderbooks, anonymous yield farming</p>
+                </div>
+                <div class="use-case">
+                    <div class="use-case-title">🎭 ZK Identity</div>
+                    <p class="use-case-description">Selective disclosure, age verification, compliance without data exposure</p>
+                </div>
+                <div class="use-case">
+                    <div class="use-case-title">🎮 Private Gaming</div>
+                    <p class="use-case-description">Hidden info games, private card games, fog of war mechanics</p>
+                </div>
+                <div class="use-case">
+                    <div class="use-case-title">🗳️ Private Voting</div>
+                    <p class="use-case-description">Anonymous governance, private proposals, confidential quadratic voting</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">Supported ZK Technologies</h2>
+            
+            <div class="features">
+                <div class="feature-card">
+                    <div class="badge">Groth16</div>
+                    <h3 class="feature-title">Efficient Proofs</h3>
+                    <p class="feature-description">
+                        Constant-size proofs (~200 bytes) with fast verification. Perfect for confidential transactions and private voting.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="badge">PLONK/PlonKY2</div>
+                    <h3 class="feature-title">Universal SNARKs</h3>
+                    <p class="feature-description">
+                        Universal trusted setup with recursive proof composition. Ideal for complex business logic privacy.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="badge">Bulletproofs</div>
+                    <h3 class="feature-title">Range Proofs</h3>
+                    <p class="feature-description">
+                        No trusted setup required. Compact proofs for ranges and values in confidential asset transfers.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="badge">ZK-STARKs</div>
+                    <h3 class="feature-title">Post-Quantum</h3>
+                    <p class="feature-description">
+                        Quantum-resistant proofs with no trusted setup. Transparent and publicly verifiable.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">Resources & Tools</h2>
+            
+            <div class="resources-grid">
+                <a href="https://solana.com/privacyhack" class="resource-card">
+                    <h3 class="resource-title">🏆 Privacy Hackathon</h3>
+                    <p class="resource-description">Official hackathon details, prizes, and submission guidelines</p>
+                </a>
+                <a href="https://docs.solana.com/" class="resource-card">
+                    <h3 class="resource-title">📚 Solana Docs</h3>
+                    <p class="resource-description">Comprehensive documentation for building on Solana</p>
+                </a>
+                <a href="https://www.lightprotocol.com/" class="resource-card">
+                    <h3 class="resource-title">💡 Light Protocol</h3>
+                    <p class="resource-description">Private smart contracts and ZK state compression</p>
+                </a>
+                <a href="https://elusiv.io/" class="resource-card">
+                    <h3 class="resource-title">🛡️ Elusiv</h3>
+                    <p class="resource-description">Privacy layer for confidential transactions on Solana</p>
+                </a>
+                <a href="https://discord.gg/solana" class="resource-card">
+                    <h3 class="resource-title">💬 Discord Support</h3>
+                    <p class="resource-description">Get help from the community and hackathon mentors</p>
+                </a>
+                <a href="https://solana.stackexchange.com/" class="resource-card">
+                    <h3 class="resource-title">❓ Stack Exchange</h3>
+                    <p class="resource-description">Ask technical questions and find answers</p>
+                </a>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="code-section">
+                <h2 style="margin-bottom: 1rem; font-size: 2rem;">Example: Confidential Transfer</h2>
+                <div class="code-block">
+                    <code>// Generate a proof for confidential token transfer
+const proof = await generateTransferProof({
+  sender: wallet.publicKey,
+  recipient: recipientPubkey,
+  amount: 100,           // Hidden from public
+  senderBalance: 1000    // Verified without disclosure
+});
+
+// Submit confidential transfer transaction
+const signature = await sendConfidentialTransfer(
+  connection,
+  wallet,
+  proof
+);
+
+console.log('Private transfer completed:', signature);</code>
+                </div>
+
+                <h2 style="margin: 2rem 0 1rem; font-size: 2rem;">Example: Private Voting</h2>
+                <div class="code-block">
+                    <code>// Cast a vote without revealing your choice
+const voteProof = await generateVoteProof({
+  voter: wallet.publicKey,
+  proposal: proposalId,
+  vote: 'yes',           // Hidden choice
+  voterWeight: tokenBalance
+});
+
+// Submit private vote
+const signature = await castPrivateVote(
+  connection,
+  wallet,
+  voteProof
+);
+
+console.log('Private vote cast:', signature);</code>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">Ready to Build?</h2>
+            <p class="section-subtitle">Join the Solana Privacy Hackathon and experiment with ZK primitives</p>
+            
+            <div class="cta-buttons">
+                <a href="https://solana.com/privacyhack" class="btn btn-primary">Join Hackathon</a>
+                <a href="https://github.com/txtx/surfnet-zk-edge" class="btn btn-secondary">View on GitHub</a>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p>
+            <strong>Surfnet ZK Edge</strong> - Ephemeral Network for the 
+            <a href="https://solana.com/privacyhack">Solana Privacy Hackathon</a>
+        </p>
+        <p style="margin-top: 1rem; opacity: 0.7;">
+            Built with ❤️ for privacy-preserving innovation on Solana
+        </p>
+        <p style="margin-top: 1rem;">
+            <a href="https://github.com/txtx/surfnet-zk-edge">GitHub</a> | 
+            <a href="https://discord.gg/solana">Discord</a> | 
+            <a href="https://docs.solana.com/">Documentation</a>
+        </p>
+    </footer>
+</body>
+</html>
