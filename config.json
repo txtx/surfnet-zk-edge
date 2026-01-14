@@ -6,8 +6,8 @@
   "rpc_url": "https://zk-edge.surfnet.dev:8899",
   "ws_url": "https://zk-edge.surfnet.dev:8900",
   "explorer_cluster_query": "cluster=zkedge",
-  "network_banner_image_url": "zk-edge/banner.jpg",
-  "network_logo_image_url": "zk-edge/logo.jpg",
+  "network_banner_image_url": "banner.jpg",
+  "network_logo_image_url": "logo.jpg",
   "primary_color": "#9333EA",
   "secondary_color": "#06B6D4",
   "primary_button": {
