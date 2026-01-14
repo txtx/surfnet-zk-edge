@@ -5,7 +5,7 @@
   "network_url": "https://zk-edge.surfnet.dev:8899",
   "rpc_url": "https://zk-edge.surfnet.dev:8899",
   "ws_url": "https://zk-edge.surfnet.dev:8900",
-  "explorer_cluster_query": "cluster=simd296",
+  "explorer_cluster_query": "cluster=custom&customUrl=https://zk-edge.surfnet.dev:8899",
   "network_banner_image_url": "zk-edge/banner.jpg",
   "network_logo_image_url": "zk-edge/logo.jpg",
   "primary_color": "#4ADE80",
